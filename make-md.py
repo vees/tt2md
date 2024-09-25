@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-# Load the tweets.js file (assuming it's a valid JSON file with "window.YTD.tweet.part0")
+# Load the tweets.js file (assuming it's a valid JSON file with "window.YTD.tweets.part0")
 def load_tweets(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         # Remove the JavaScript part and parse the JSON
@@ -40,7 +40,7 @@ def organize_tweets_by_date(tweets):
 
     return organized_tweets
 
-# Create markdown files for each year and write tweets by month
+# Create markdown files for each year and write tweets by month using Variant 1
 def write_markdown_files(organized_tweets, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
@@ -61,10 +61,12 @@ def write_markdown_files(organized_tweets, output_dir):
                     retweets = tweet['retweets']
                     source = tweet['source']
 
-                    f.write(f'- **Date**: {date}\n')
-                    f.write(f'  **Source**: {source}\n')
-                    f.write(f'  **Favorites**: {favorites}, **Retweets**: {retweets}\n')
-                    f.write(f'  **Tweet**: {tweet_text}\n\n')
+                    # Variant 1: Minimalist Format
+                    f.write(f'**{date}**\n')
+                    f.write(f'> {tweet_text}\n')
+                    f.write(f'- **Favorites**: {favorites}, **Retweets**: {retweets}\n')
+                    f.write(f'- **Source**: {source}\n\n')
+                    f.write('---\n\n')
 
     print(f'Markdown files created in: {output_dir}')
 
@@ -76,8 +78,7 @@ def main(tweets_js_path, output_dir):
 
 # Specify the path to the tweets.js file and the output directory
 tweets_js_path = './tweets.js'  # Update this path to your tweets.js location
-output_dir = 'tweets_markdown_output'
+output_dir = '/Users/rob/Projects/veesaurus/docs-vees-net/docs/self/twitter'
 
 # Run the script
 main(tweets_js_path, output_dir)
-
