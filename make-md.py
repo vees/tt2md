@@ -27,13 +27,29 @@ def wrap_urls_in_backticks(text):
     
     return wrapped_text
 
+# Function to wrap words containing { or } in backticks
+def wrap_brace_words_in_backticks(text):
+    # Regular expression to match words containing { or }
+    brace_pattern = re.compile(r'(\S*[\{\}]\S*)')
+    
+    # Replace words containing { or } with backticks around them
+    wrapped_text = re.sub(brace_pattern, r'`\1`', text)
+    
+    return wrapped_text
+
+# Combined function to wrap both URLs and brace-containing words
+def clean_tweet_text(text):
+    text = wrap_urls_in_backticks(text)
+    text = wrap_brace_words_in_backticks(text)
+    return text
+
 # Convert tweet data into a chronological structure organized by year and month
 def organize_tweets_by_date(tweets):
     organized_tweets = {}
 
     for tweet_data in tweets:
         tweet = tweet_data['tweet']
-        tweet_text = wrap_urls_in_backticks(tweet['full_text'])  # Wrap URLs in backticks
+        tweet_text = clean_tweet_text(tweet['full_text'])  # Clean text for URLs and brace-containing words
         created_at = tweet['created_at']
         tweet_date = datetime.strptime(created_at, '%a %b %d %H:%M:%S %z %Y')
 
