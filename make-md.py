@@ -60,6 +60,12 @@ def organize_tweets_by_date(tweets):
 def write_markdown_files(organized_tweets, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
+    # Define the order of months
+    month_order = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
+
     for year, months in organized_tweets.items():
         file_name = f'{year}.md'
         file_path = os.path.join(output_dir, file_name)
@@ -67,20 +73,22 @@ def write_markdown_files(organized_tweets, output_dir):
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(f'# Tweets from {year}\n\n')
 
-            for month, tweets in months.items():
-                f.write(f'## {month}\n\n')
+            # Sort months based on the predefined month order
+            for month in month_order:
+                if month in months:
+                    f.write(f'## {month}\n\n')
 
-                for tweet in tweets:
-                    tweet_text = tweet['text']
-                    date = tweet['date']
-                    favorites = tweet['favorites']
-                    retweets = tweet['retweets']
+                    for tweet in months[month]:
+                        tweet_text = tweet['text']
+                        date = tweet['date']
+                        favorites = tweet['favorites']
+                        retweets = tweet['retweets']
 
-                    # Variant 1: Minimalist Format
-                    f.write(f'**{date}**\n')
-                    f.write(f'> {tweet_text}\n')
-                    f.write(f'- **Favorites**: {favorites}, **Retweets**: {retweets}\n\n')
-                    f.write('---\n\n')
+                        # Variant 1: Minimalist Format
+                        f.write(f'**{date}**\n')
+                        f.write(f'> {tweet_text}\n')
+                        f.write(f'- **Favorites**: {favorites}, **Retweets**: {retweets}\n\n')
+                        f.write('---\n\n')
 
     print(f'Markdown files created in: {output_dir}')
 
