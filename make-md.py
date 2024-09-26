@@ -129,6 +129,7 @@ def write_markdown_files(organized_tweets, output_dir, media_dir, image_url_pref
 
                         # Add images to the output if available
                         if images:
+                            f.write("\n")  # Ensure the images are separated by two newlines
                             for image_filename in images:
                                 # Use URL prefix if provided, otherwise use local path
                                 if image_url_prefix:
@@ -136,7 +137,7 @@ def write_markdown_files(organized_tweets, output_dir, media_dir, image_url_pref
                                 else:
                                     image_path = os.path.join(media_dir, image_filename)
 
-                                f.write(f'![Tweet Image]({image_path})\n')
+                                f.write(f'![Tweet Image]({image_path})\n\n')  # Two newlines after each image
 
                         f.write('\n---\n\n')
 
@@ -159,4 +160,3 @@ def main():
 # Run the script
 if __name__ == "__main__":
     main()
-
