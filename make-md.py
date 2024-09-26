@@ -64,7 +64,7 @@ def organize_tweets_by_date(tweets):
 
         # Capture the tweet text and interesting metadata
         organized_tweets[year][month].append({
-            'date': tweet_date.strftime('%Y-%m-%d %H:%M:%S'),
+            'date': tweet_date,
             'text': tweet_text,
             'favorites': tweet['favorite_count'],
             'retweets': tweet['retweet_count']
@@ -92,11 +92,14 @@ def write_markdown_files(organized_tweets, output_dir):
             # Sort months based on the predefined month order
             for month in month_order:
                 if month in months:
+                    # Sort tweets by date within each month in ascending order
+                    sorted_tweets = sorted(months[month], key=lambda x: x['date'])
+
                     f.write(f'## {month}\n\n')
 
-                    for tweet in months[month]:
+                    for tweet in sorted_tweets:
                         tweet_text = tweet['text']
-                        date = tweet['date']
+                        date = tweet['date'].strftime('%Y-%m-%d %H:%M:%S')
                         favorites = tweet['favorites']
                         retweets = tweet['retweets']
 
