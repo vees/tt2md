@@ -9,19 +9,11 @@ This Python script processes a Twitter Takeout file (`tweets.js`) and converts t
 - Embeds media (e.g., images) from the `tweets_media` directory in the Markdown output.
 - Optionally allows prefixing the media URLs with a full URL for external hosting.
 - Handles special characters and ensures proper Markdown formatting.
-- Properly formats images to sit on their own lines in Markdown.
+- Properly formats images to sit on their own lines in rendered output.
 
 ## Requirements
 
-- Python 3.x
-
-## Setup
-
-1. Clone the repository or download the script.
-
-2. Install Python if you don't have it installed. You can download it from [python.org](https://www.python.org/downloads/).
-
-3. Install the required Python libraries (if necessary). The script primarily uses standard libraries, but ensure you have `json` and `os` available.
+- Python 3
 
 ## Configuration
 
@@ -54,7 +46,7 @@ Before running the script, you need to set up the configuration file `config.jso
    Open a terminal or command prompt and run the script:
 
    ```bash
-   python3 twitter_takeout_to_markdown.py
+   python3 make-md.py
    ```
 
 3. **Check the Output**:
@@ -99,5 +91,5 @@ This script is free to use and modify.
 
 ## Contact
 
-Feel free to reach out if you have any questions or run into issues with the script!
+Feel free to reach out if you have any questions or suggestions to rob@vees.net.
 
